@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
-      "module": "NodeNext",
-      "moduleResolution": "NodeNext",
-      "baseUrl": "src",
-      "outDir": "dist",
-      "sourceMap": true,
-      "noImplicitAny": true,
-      "esModuleInterop": true, 
-      "allowSyntheticDefaultImports": true 
-    },
-    "include": ["src/**/*"],
-    "exclude": ["node_modules"]
-  }
+    "module": "ES2020",
+    "moduleResolution": "node",
+    "baseUrl": "src",
+    "outDir": "dist",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true 
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}

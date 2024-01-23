@@ -2,14 +2,25 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import express from "express";
+import { body, validationResult } from 'express-validator';
 
 /* Component */
 import prisma from '../config/db.config';
 import { createUserType, loginType } from 'shared/usersTypes';
 
 
+
 export const register = async (req:express.Request, res: express.Response) => {
     try {
+
+        await body('email').isEmail().run(req);
+        await body('password').isLength({ min: 5 }).run(req);
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
         const {firstName, lastName, email, password, picturePath, friends, location, occupation }: createUserType = req.body;
 
         if (!firstName || !lastName || !email || !password ) 
@@ -47,6 +58,16 @@ export const register = async (req:express.Request, res: express.Response) => {
 
 export const login =async (req:express.Request, res: express.Response) => {
     try {
+
+        await body('email').isEmail().run(req);
+        await body('password').notEmpty().run(req);
+        const errors = validationResult(req);
+    
+        if (!errors.isEmpty()) {
+          return res.status(400).json({ errors: errors.array() });
+        }
+
+        
         const { email, password }: loginType = req.body;
         if (!email)return res.json({status: 400,message: "complete the email. "});
         if (!password) return res.json({status: 400,message: "complete the password. "});

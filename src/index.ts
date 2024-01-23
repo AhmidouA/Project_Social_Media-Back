@@ -6,7 +6,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import path from 'path';
 import cors from 'cors';
-import { fileURLToPath } from "node:url"; //  sert à convertir un objet URL en un chemin d'accès de fichier utilisable dans le système de fichiers en JavaScript
+import routers from './routers';
 
 /* CONFIGURATION */
 const __filename = path.resolve();
@@ -29,7 +29,7 @@ app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
 const PORT = process.env.PORT;
 
-// app.use('/api',)
+app.use('/api', routers());
 
 app.listen(PORT, () => {
     console.log(`server runnig on ${PORT}`)

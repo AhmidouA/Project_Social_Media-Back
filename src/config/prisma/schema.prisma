@@ -13,9 +13,34 @@ datasource db {
 
 model User {
   id Int @id @default(autoincrement())
-  email String @unique
-  name String?
+  firstName String  @db.VarChar(50)
+  lastName String  @db.VarChar(50)
+  email String @unique  @db.VarChar(50)
+  picturePath String?  @default("")
   password String
+  friends String[]  @default([])
+  location String?
+  occupation String?
+  viewedProfile Int?
+  impressions Int?
+  post Post[]
+
+  created_at DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model Post {
+  id Int @id @default(autoincrement())
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+  firstName String
+  lastName String
+  location String?
+  description String?
+  picturePath String?
+  userPicturePath String?
+  likes Json       // Champ pour stocker des données JSON, telles que les likes
+  friends String[]  @default([])
 
   created_at DateTime @default(now())
   updatedAt DateTime @default(now())

@@ -13,6 +13,8 @@ import { createUserType, loginType } from 'shared/usersTypes';
 export const register = async (req:express.Request, res: express.Response) => {
     try {
 
+        await body('firstName').isLength({ min: 2, max: 50 }).run(req);
+        await body('lastName').isLength({ min: 2, max: 50 }).run(req);
         await body('email').isEmail().run(req);
         await body('password').isLength({ min: 5 }).run(req);
         const errors = validationResult(req);

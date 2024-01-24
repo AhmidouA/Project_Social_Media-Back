@@ -105,7 +105,7 @@ export const login =async (req:express.Request, res: express.Response) => {
     }  
 };
 
-export const logout =async (req: express.Request, res: express.Response) => {
+export const logout = async (req: express.Request, res: express.Response) => {
     try {
         res.clearCookie('token')
         

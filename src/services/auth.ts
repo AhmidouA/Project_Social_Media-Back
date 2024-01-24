@@ -17,16 +17,17 @@ export const register = async (req:express.Request, res: express.Response) => {
         await body('firstName').isLength({ min: 2, max: 50 }).withMessage('First name must be between 2 and 50 characters.').run(req);
         await body('lastName').isLength({ min: 2, max: 50 }).withMessage('Last name must be between 2 and 50 characters.').run(req);
         await body('email').isEmail().withMessage('Invalid email address.').run(req);
-        await body('password').isLength({ min: 5 }).withMessage('Password must be at least 5 characters.').run(req);
+        await body('password').isLength({ min: 4 }).withMessage('Password must be at least 5 characters.').run(req);
+        await body('confirmPassword').isLength({ min: 4 }).withMessage('confirm Password must be at least 5 characters And same Password.').run(req);
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
 
-        const {firstName, lastName, email, password, picturePath, friends, location, occupation }: createUserType = req.body;
+        const {firstName, lastName, email, password, confirmPassword, picturePath, friends, location, occupation }: createUserType = req.body;
 
-        if (!firstName || !lastName || !email || !password ) 
+        if (!firstName || !lastName || !email || !password || !confirmPassword ) 
             return res.json({status: 400,message: "Please complete all fields."});
 
         const findUser = await prisma.user.findUnique({
@@ -34,6 +35,7 @@ export const register = async (req:express.Request, res: express.Response) => {
         });
 
         if (findUser) return res.json({status: 400,message: "Email Already Taken, Please choose another email."});
+        if (password !== confirmPassword) return  res.json({status: 400, message: 'Password and confirmation does not match'})
 
         const hasedPassword = await bcrypt.hash(password, 10)
         

@@ -6,6 +6,7 @@ export type createUserType = {
     email: string;
     picturePath?: string;
     password: string;
+    confirmPassword: string;
     friends: string[];
     location?: string;
     occupation?: string;

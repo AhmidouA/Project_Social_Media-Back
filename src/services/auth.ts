@@ -30,7 +30,7 @@ export const register = async (req:express.Request, res: express.Response) => {
         if (!firstName || !lastName || !email || !password || !confirmPassword ) 
             return res.json({status: 400,message: "Please complete all fields."});
 
-        const findUser = await prisma.user.findUnique({
+        const findUser: createUserType = await prisma.user.findUnique({
             where: {email}
         });
 

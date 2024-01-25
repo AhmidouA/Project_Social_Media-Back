@@ -12,3 +12,9 @@ export type PostType = {
     created_at: Date;
     updatedAt: Date;
 };
+
+export type createPostType = {
+    userId: number;
+    description?: string;
+    picturePath?: string;
+}

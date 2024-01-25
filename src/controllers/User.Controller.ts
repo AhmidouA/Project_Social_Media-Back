@@ -94,4 +94,4 @@ export const addRemoveFriend = async (req: express.Request, res: express.Respons
         console.error("addRemoveFriend Error:", error);
         return res.status(500).json({ status: 500, message: "Internal Server Error" });
     };
-};
+}

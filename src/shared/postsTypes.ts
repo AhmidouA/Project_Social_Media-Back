@@ -7,7 +7,7 @@ export type PostType = {
     description?: string;
     picturePath?: string;
     userPicturePath?: string;
-    likes: any; // Remplacez "any" par le type approprié pour vos likes
+    likes: []; 
     friends: string[];
     created_at: Date;
     updatedAt: Date;
